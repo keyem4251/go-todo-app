@@ -1,7 +1,6 @@
 package infrastructure
 
 import (
-	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
 	"github.com/keyem4251/go-todo-app/pkg/domain/repository"
@@ -13,10 +12,7 @@ type ItemRepository struct {
 }
 
 func NewItemRepository() repository.ItemRepository {
-	db, err := gorm.Open(sqlite.Open("todo.db"), &gorm.Config{})
-	if err != nil {
-		panic("failed to connect database")
-	}
+	db := GetDB()
 
 	return &ItemRepository {
 		Conn: db,
