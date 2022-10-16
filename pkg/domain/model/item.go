@@ -1,18 +1,18 @@
 package model
 
 type Item struct {
-	Id int
+	Id      int
 	Title   string
 	Content string
-	Status Status
+	Status  Status
 }
 
 func NewItem(id int, title string, content string) (*Item, error) {
 	return &Item{
-		Id: id,
+		Id:      id,
 		Title:   title,
 		Content: content,
-		Status: Open,
+		Status:  Open,
 	}, nil
 }
 
