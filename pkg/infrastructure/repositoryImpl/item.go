@@ -1,10 +1,11 @@
-package infrastructure
+package repositoryImpl
 
 import (
 	"gorm.io/gorm"
 
 	"github.com/keyem4251/go-todo-app/pkg/domain/repository"
 	"github.com/keyem4251/go-todo-app/pkg/domain/model"
+	"github.com/keyem4251/go-todo-app/pkg/infrastructure"
 )
 
 type ItemQueryRepositoryImpl struct {
@@ -12,7 +13,7 @@ type ItemQueryRepositoryImpl struct {
 }
 
 func NewItemQueryRepository() repository.ItemQueryRepository {
-	db := GetDB()
+	db := infrastructure.GetDB()
 
 	return &ItemQueryRepositoryImpl {
 		Conn: db,
@@ -37,7 +38,7 @@ type ItemCommandRepositoryImpl struct {
 }
 
 func NewItemCommandRepository() repository.ItemCommandRepository {
-	db := GetDB()
+	db := infrastructure.GetDB()
 
 	return &ItemCommandRepositoryImpl {
 		Conn: db,
