@@ -12,7 +12,7 @@ pkg/
 ├── errors // アプリケーション全体のエラー処理
 │   └── error.go
 ├── infrastructure // DBアクセス処理
-│   ├── dao
+│   ├── dto
 │   ├── db.go
 │   ├── query
 │   ├── repository
