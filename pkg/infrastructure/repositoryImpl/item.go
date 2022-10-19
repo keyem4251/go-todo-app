@@ -3,9 +3,10 @@ package repositoryImpl
 import (
 	"gorm.io/gorm"
 
-	"github.com/keyem4251/go-todo-app/pkg/domain/repository"
 	"github.com/keyem4251/go-todo-app/pkg/domain/model"
+	"github.com/keyem4251/go-todo-app/pkg/domain/repository"
 	"github.com/keyem4251/go-todo-app/pkg/infrastructure"
+	"github.com/keyem4251/go-todo-app/pkg/infrastructure/dto"
 )
 
 type ItemQueryRepositoryImpl struct {
@@ -21,15 +22,13 @@ func NewItemQueryRepository() repository.ItemQueryRepository {
 }
 
 func (iqr *ItemQueryRepositoryImpl) FindById(id int) (*model.Item, error) {
-	item := &model.Item{
-		Id: id,
-	}
+	itemDao := dto.Item{}
 
-	if err := iqr.Conn.First(&item).Error; err != nil {
+	if err := iqr.Conn.Find(&itemDao, dto.Item{Id: id}).Error; err != nil {
 		return nil, err
 	}
 
-	return item, nil
+	return itemDao.ConvertToModel(), nil
 }
 
 
@@ -46,25 +45,45 @@ func NewItemCommandRepository() repository.ItemCommandRepository {
 }
 
 func (icr *ItemCommandRepositoryImpl) Create(item *model.Item) (*model.Item, error) {
-	if err := icr.Conn.Create(&item).Error; err != nil {
+	itemDao := dto.Item{
+		Id: item.Id,
+		Title: item.Title,
+		Content: item.Content,
+		Status: item.Status,
+	}
+	
+	if err := icr.Conn.Create(&itemDao).Error; err != nil {
 		return nil, err
 	}
 
-	return item, nil
+	return itemDao.ConvertToModel(), nil
 }
 
 
 func (icr *ItemCommandRepositoryImpl) Update(item *model.Item) error {
-	if err := icr.Conn.Model(&item).Updates(&item).Error; err != nil {
+	itemDao := dto.Item{}
+
+	if err := icr.Conn.First(&itemDao, dto.Item{Id: item.Id}).Error; err != nil {
 		return err
 	}
+
+	itemDao.Content = item.Content
+	itemDao.Title = item.Title
+	itemDao.Status = item.Status
+
+	icr.Conn.Save(&itemDao)
 
 	return nil
 }
 
 func (icr *ItemCommandRepositoryImpl) Delete(item *model.Item) error {
-	if err := icr.Conn.Delete(&item).Error; err != nil {
+	itemDao := dto.Item{}
+
+	if err := icr.Conn.First(&itemDao, dto.Item{Id: item.Id}).Error; err != nil {
 		return err
 	}
+
+	icr.Conn.Delete(&itemDao)
+
 	return nil
 }
