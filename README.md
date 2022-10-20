@@ -9,13 +9,9 @@ pkg/
 │   ├── repository // infrastructureと依存性逆転のためのinterface
 │   │              // repostitoryの中でquery用とcommand用でinterfaceを分ける
 │   └── service  // 複数のmodelをまたぐ業務的なロジックを処理
-├── errors // アプリケーション全体のエラー処理
-│   └── error.go
 ├── infrastructure // DBアクセス処理
 │   ├── dto
-│   ├── db.go
-│   ├── query
+│   ├── db // DBの共通処理
 │   ├── repository
-│   └── seeds
 └── usecase // usecase(application service) repository, domainを扱いアプリケーションの処理を行う
 ```
