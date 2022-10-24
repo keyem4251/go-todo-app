@@ -14,8 +14,7 @@ services:
       - "3306:3306"
     volumes:
       - ./mysql:/var/db/mysql
-    container_name: mysql-container
+    hostname: mysql
     environment:
-      MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: db
