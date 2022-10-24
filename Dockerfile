@@ -9,7 +9,6 @@ COPY pkg/ ./pkg
 RUN go mod download && go mod verify
 
 RUN go build -o go-todo-app cmd/go-todo-app/main.go
-COPY wait-for-mysql.sh ./
 
 EXPOSE 8080
 

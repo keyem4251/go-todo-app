@@ -23,7 +23,7 @@ func Init() *gorm.DB {
 			time.Sleep(time.Duration(retry_count) * time.Second)
 		} else {
 			fmt.Println("db setup done")
-			return db		
+			return db
 		}
 		if retry_count > 3 {
 			break
