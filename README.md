@@ -16,5 +16,5 @@ pkg/
 └── usecase // usecase(application service) repository, domainを扱いアプリケーションの処理を行う
 ```
 
-start up docker-compose
-'$ docker-compose up'
+start up docker-compose  
+‘$ docker-compose up’
