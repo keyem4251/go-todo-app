@@ -20,7 +20,7 @@ func Init() *gorm.DB {
 		if err != nil {
 			fmt.Printf("failed to connect database and retry count %d\n", retry_count)
 			retry_count += 1
-			time.Sleep(time.Duration(retry_count) * time.Second)
+			time.Sleep(time.Duration(retry_count * 10) * time.Second)
 		} else {
 			fmt.Println("db setup done")
 			return db
