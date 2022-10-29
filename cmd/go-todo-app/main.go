@@ -6,6 +6,7 @@ import (
 
 	"github.com/keyem4251/go-todo-app/pkg/domain/model"
 	"github.com/keyem4251/go-todo-app/pkg/infrastructure"
+	"github.com/keyem4251/go-todo-app/pkg/adapter/controller"
 )
 
 func main() {
@@ -15,16 +16,8 @@ func main() {
 	infrastructure.Init()
 	
 	fmt.Println("start server")
-	http.HandleFunc("/", sample_handler)
-	fmt.Println(http.ListenAndServe(":8080", nil))
-}
+	itemController := controller.ItemController{}
 
-func sample_handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("get request.")
-	switch r.Method {
-	case http.MethodGet:
-		fmt.Println(r)
-	case http.MethodPost:
-		fmt.Println(r)
-	}
+	http.HandleFunc("/", itemController.Get)
+	fmt.Println(http.ListenAndServe(":8080", nil))
 }
