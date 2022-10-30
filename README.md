@@ -1,6 +1,9 @@
 # go-todo-app
 
 ```
+cmd/
+├── go-todo-app
+│   └── main // entry point
 pkg/
 ├── adapter // 外部からのリクエスト処理
 │   └── controller
