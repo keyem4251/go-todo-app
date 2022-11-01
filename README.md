@@ -16,7 +16,7 @@ pkg/
 │   ├── dto
 │   ├── db // DBの共通処理
 │   ├── repository
-└── usecase // usecase(application service) repository, domainを扱いアプリケーションの処理を行う 未実装
+└── usecase // usecase(application service) repository, domainを扱いアプリケーションの処理を行う
 ```
 
 start up docker-compose  
