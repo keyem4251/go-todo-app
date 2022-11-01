@@ -8,7 +8,7 @@ type ItemQueryRepository interface {
 }
 
 type ItemCommandRepository interface {
-	Create(item *model.Item) (*model.Item, error)
+	Create(item *model.Item) error
 	Update(item *model.Item) error
 	Delete(item *model.Item) error
 }

@@ -44,7 +44,7 @@ func NewItemCommandRepository() repository.ItemCommandRepository {
 	}
 }
 
-func (icr *ItemCommandRepositoryImpl) Create(item *model.Item) (*model.Item, error) {
+func (icr *ItemCommandRepositoryImpl) Create(item *model.Item) error {
 	itemDao := dto.Item{
 		Id: item.Id,
 		Title: item.Title,
@@ -53,10 +53,10 @@ func (icr *ItemCommandRepositoryImpl) Create(item *model.Item) (*model.Item, err
 	}
 	
 	if err := icr.Conn.Create(&itemDao).Error; err != nil {
-		return nil, err
+		return err
 	}
 
-	return itemDao.ConvertToModel(), nil
+	return nil
 }
 
 

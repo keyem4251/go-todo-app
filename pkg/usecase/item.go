@@ -24,3 +24,26 @@ func (ius getItemUseCase) Exec() (*model.Item, error) {
 	}
 	return item, nil
 }
+
+type createItemUseCase struct {
+	Title string
+	Content string
+	ItemRepository repository.ItemCommandRepository
+}
+
+func NewCreateItemUseCase(title string, content string, itemRepository repository.ItemCommandRepository) *createItemUseCase {
+	return &createItemUseCase{
+		Title: title,
+		Content: content,
+		ItemRepository: itemRepository,
+	}
+}
+
+func (ius createItemUseCase) Exec() error {
+	item := model.NewItem(1, ius.Title, ius.Content)
+	err := ius.ItemRepository.Create(item)
+	if err != nil {
+		return err
+	}
+	return nil
+}

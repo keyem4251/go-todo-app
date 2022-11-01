@@ -19,9 +19,23 @@ func (ctrl ItemController) Get(w http.ResponseWriter, r *http.Request) {
 		item, err := getItemUseCase.Exec()
 		if err != nil {
 			fmt.Println("Item Not Found")
-
 		}
 		w.Write([]byte(item.Title))
 		w.Write([]byte(item.Content))
+	}
+}
+
+func (ctrl ItemController) Post(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("post request.")
+	switch r.Method {
+	case http.MethodPost:
+		itemRepository := repositoryImpl.NewItemCommandRepository()
+		getItemUseCase := usecase.NewCreateItemUseCase("title", "content", itemRepository)
+		err := getItemUseCase.Exec()
+		if err != nil {
+			fmt.Println("Create Item Failed")
+			return
+		}
+		fmt.Println("Create Item Success")
 	}
 }
