@@ -3,6 +3,9 @@ package controller
 import (
 	"fmt"
 	"net/http"
+
+	"github.com/keyem4251/go-todo-app/pkg/infrastructure/repositoryImpl"
+	"github.com/keyem4251/go-todo-app/pkg/usecase"
 )
 
 type ItemController struct {}
@@ -11,8 +14,14 @@ func (ctrl ItemController) Get(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("get request.")
 	switch r.Method {
 	case http.MethodGet:
-		fmt.Println(r)
-	case http.MethodPost:
-		fmt.Println(r)
+		itemRepository := repositoryImpl.NewItemQueryRepository()
+		getItemUseCase := usecase.NewGetItemUseCase(1, itemRepository)
+		item, err := getItemUseCase.Exec()
+		if err != nil {
+			fmt.Println("Item Not Found")
+
+		}
+		w.Write([]byte(item.Title))
+		w.Write([]byte(item.Content))
 	}
 }
