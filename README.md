@@ -15,7 +15,7 @@ pkg/
 ├── infrastructure // DBアクセス処理
 │   ├── dto
 │   ├── db // DBの共通処理
-│   ├── repository
+│   ├── repositoryImpl
 └── usecase // usecase(application service) repository, domainを扱いアプリケーションの処理を行う
 ```
 
