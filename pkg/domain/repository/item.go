@@ -5,6 +5,7 @@ import "github.com/keyem4251/go-todo-app/pkg/domain/model"
 type ItemQueryRepository interface {
 	FindById(id int) (*model.Item, error)
 	// FindAll() (*model.Items, error) 複数返す実装
+	Exists(id int) bool
 }
 
 type ItemCommandRepository interface {

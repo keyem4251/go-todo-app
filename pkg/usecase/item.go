@@ -1,8 +1,11 @@
 package usecase
 
 import (
+	"errors"
+
 	"github.com/keyem4251/go-todo-app/pkg/domain/model"
 	"github.com/keyem4251/go-todo-app/pkg/domain/repository"
+	"github.com/keyem4251/go-todo-app/pkg/domain/service"
 )
 
 type getItemUseCase struct {
@@ -29,6 +32,7 @@ type createItemUseCase struct {
 	Title string
 	Content string
 	ItemRepository repository.ItemCommandRepository
+	ItemQueryRepository repository.ItemQueryRepository
 }
 
 func NewCreateItemUseCase(title string, content string, itemRepository repository.ItemCommandRepository) *createItemUseCase {
@@ -41,6 +45,11 @@ func NewCreateItemUseCase(title string, content string, itemRepository repositor
 
 func (ius createItemUseCase) Exec() error {
 	item := model.NewItem(1, ius.Title, ius.Content)
+	newItemService := service.NewItemService(ius.ItemQueryRepository)
+	if newItemService.Exists(item.Id) {
+		return errors.New("ID FOUND")
+	}
+
 	err := ius.ItemRepository.Create(item)
 	if err != nil {
 		return err

@@ -1,6 +1,8 @@
 package repositoryImpl
 
 import (
+	"errors"
+
 	"gorm.io/gorm"
 
 	"github.com/keyem4251/go-todo-app/pkg/domain/model"
@@ -31,6 +33,12 @@ func (iqr *ItemQueryRepositoryImpl) FindById(id int) (*model.Item, error) {
 	return itemDao.ConvertToModel(), nil
 }
 
+func (iqr *ItemQueryRepositoryImpl) Exists(id int) bool {
+	itemDao := dto.Item{}
+
+	err := iqr.Conn.First(&itemDao, dto.Item{Id: id}).Error
+	return !errors.Is(err, gorm.ErrRecordNotFound)
+}
 
 type ItemCommandRepositoryImpl struct {
 	Conn *gorm.DB
