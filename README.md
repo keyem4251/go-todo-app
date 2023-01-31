@@ -24,4 +24,4 @@ start up docker-compose
 $ docker-compose up
 ```
 
-Using MySQL and go http server.
+Using MySQL and go http server
